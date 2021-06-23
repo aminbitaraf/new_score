@@ -6,11 +6,11 @@ import time
 
 URL = "http://puya.kashmar.ac.ir/gateway/UserInterim.php"
 EXAM_SCORE_URL = 'http://puya.kashmar.ac.ir/educ/educfac/stuShowEducationalLogFromGradeList.php'
-TIMES_TO_CHECK_PER_MIN = 30
+TIMES_TO_CHECK_PER_MIN = 0.2
 
+username = input('Enter your username: \n')
 password = input('Enter your password: \n')
 hashPass = hashlib.md5(password.encode()).hexdigest()
-username = input('Enter your username: \n')
 
 postParam = {
     'UserPassword' : hashPass,
@@ -31,22 +31,22 @@ def get_score(PHPSESSID):
 def get_PHPSESSID():
     with requests.Session() as s:
         s.post(URL, data=postParam)
+        if not s.cookies:
+            raise print('your password or username is wrong')
+
         PHPSESSID = s.cookies.get_dict()['PHPSESSID']
         f = open('PHPSESSID.txt','w')
         f.write(PHPSESSID)
         f.close()
         return PHPSESSID
 
+get_PHPSESSID()
 
 while True:
-    if os.path.exists('./PHPSESSID.txt'):
-        readPHPSESSID = open('PHPSESSID.txt','r')
-        PHPSESSID = readPHPSESSID.readline()
-        readPHPSESSID.close()
-    
-    else:
-        PHPSESSID = get_PHPSESSID()
-    
+    readPHPSESSID = open('PHPSESSID.txt','r')
+    PHPSESSID = readPHPSESSID.readline()
+    readPHPSESSID.close()
+
     if not PHPSESSID:
         get_PHPSESSID()
 
