@@ -1,18 +1,16 @@
 import requests
 import hashlib
-from bs4 import BeautifulSoup as bs4
 import pandas as pd
 import os
 import time
 
 URL = "http://puya.kashmar.ac.ir/gateway/UserInterim.php"
 EXAM_SCORE_URL = 'http://puya.kashmar.ac.ir/educ/educfac/stuShowEducationalLogFromGradeList.php'
-TIMES_TO_CHECK_PER_MIN = 0.2
+TIMES_TO_CHECK_PER_MIN = 30
 
 password = input('Enter your password: \n')
 hashPass = hashlib.md5(password.encode()).hexdigest()
 username = input('Enter your username: \n')
-username = '9713130048'
 
 postParam = {
     'UserPassword' : hashPass,
