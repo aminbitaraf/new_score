@@ -6,7 +6,7 @@ import time
 
 URL = "http://puya.kashmar.ac.ir/gateway/UserInterim.php"
 EXAM_SCORE_URL = 'http://puya.kashmar.ac.ir/educ/educfac/stuShowEducationalLogFromGradeList.php'
-TIMES_TO_CHECK_PER_MIN = 0.2
+TIMES_TO_CHECK_PER_MIN = 30
 
 username = input('Enter your username: \n')
 password = input('Enter your password: \n')
